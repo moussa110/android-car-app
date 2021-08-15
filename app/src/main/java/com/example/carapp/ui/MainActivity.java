@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         adapter = new CarRecyclerAdapter();
+        adapter.viewModel = viewModel;
         initViews();
         subscribeToLiveData();
         initListeners();

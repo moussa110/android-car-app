@@ -11,6 +11,7 @@ import com.example.carapp.api.resource.Resource;
 import com.example.carapp.pojo.CarItem;
 import com.example.carapp.pojo.CarResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -19,6 +20,7 @@ import retrofit2.Response;
 
 public class MainActivityViewModel extends ViewModel {
     private MutableLiveData<Resource<List<CarItem>>> carsLiveData = new MutableLiveData<>();
+    private List<CarItem> data = new ArrayList<CarItem>();
 
     public MutableLiveData<Resource<List<CarItem>>> getCarsLiveData() {
         return carsLiveData;
@@ -37,7 +39,10 @@ public class MainActivityViewModel extends ViewModel {
             public void onResponse(Call<CarResponse> call, Response<CarResponse> response) {
                 if (response.isSuccessful()) {
                     //success
-                    carsLiveData.setValue(Resource.success(response.body().getData()));
+                   for (int i =0;i< response.body().getData().size() ;i++){
+                       data.add(response.body().getData().get(i));
+                   }
+                    carsLiveData.setValue(Resource.success(data));
                 }else {
                     //error
                     carsLiveData.setValue(Resource.error(response.message()));

@@ -19,6 +19,7 @@ import java.util.List;
 public class CarRecyclerAdapter extends RecyclerView.Adapter<CarRecyclerAdapter.ViewHolder> {
     private List<CarItem> data = null;
 
+    MainActivityViewModel viewModel;
     public void changeData(List<CarItem> data){
         this.data = data;
         notifyDataSetChanged();
@@ -48,6 +49,9 @@ public class CarRecyclerAdapter extends RecyclerView.Adapter<CarRecyclerAdapter.
                 .centerCrop()
                 .error(R.drawable.errorimage)
                 .into(holder.imageView);
+
+        if ((data.size() - 2) == position )
+            viewModel.getCars((data.size()/5)+1);
 
     }
 
